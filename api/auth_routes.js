@@ -16,7 +16,6 @@ router.get('/check', cookieParser(), async (req ,res) => {
 
 router.get('/refresh', cookieParser(), async (req ,res) => {
     try {
-
         let at = JWTTokenApi.getJwtDate(req.get('Authorization'))
         let rt = req.cookies.refreshToken
 
@@ -35,12 +34,14 @@ router.get('/refresh', cookieParser(), async (req ,res) => {
                 res.cookie('refreshToken', newRT.token,newRT.cookieOptions)
                 return res.json({res:true, at:JWTTokenApi.createJwt(newAT), rt: newRT.token})
 
+
             } else {
                 await SessionModel.deleteByIdAndToken(user_id, rt)
                 res.clearCookie('refreshToken',{path:'/auth/'})
-                return res.status(200).json({res:false})
+
             }
         }
+        return res.status(200).json({res:false})
     } catch (e) {
         return res.status(500).json({res:e.message})
     }

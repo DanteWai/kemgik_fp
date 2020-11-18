@@ -21,13 +21,15 @@ app.use('/api/settings',require('./api/settings_routes'))
 
 let PORT = 3344
 
+
+
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname,'client/dist')))
     app.get('*', (req,res) =>{
         res.sendFile(path.join(__dirname,'client','dist','index.html'))
     })
 
-    PORT = 80
+    PORT = 81
 }
 
 

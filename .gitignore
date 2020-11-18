@@ -3,3 +3,4 @@
 /client/node_modules
 /.idea
 config/config.dev.js
+.env
