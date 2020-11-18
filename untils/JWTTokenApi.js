@@ -1,7 +1,9 @@
 const { v4: uuidv4 } = require('uuid');
 const sha1 = require('sha1');
 const jwt = require('jsonwebtoken')
-const sk = '!C5@[H);88!+#%!hLebuJNDQ/k#p:)'
+
+const {keys} = require('../config/config')
+const sk = keys.jwt
 
 class JWTTokenApi{
     createJwt(obj){

@@ -60,8 +60,9 @@ router.post('/', async (req ,res) => {
         order.files = JSON.stringify(order.files)
         const newOrder = await OrderModel.add(order)
 
+        const {mail} = require('../config/config')
 
-        let transporter = nodemailer.createTransport(require('../config/mail.js'));
+        let transporter = nodemailer.createTransport(mail);
         let emails = fs.readFileSync(path.join(__dirname,'..','config','emails.json'));
         emails = JSON.parse(Buffer.from(emails).toString())
 
