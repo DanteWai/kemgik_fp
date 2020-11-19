@@ -1,9 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-
-
-
+require('dotenv').config()
 
 app.use(express.static(path.join(__dirname,'uploads')))
 app.use(express.json()) // for parsing application/json
@@ -31,7 +29,7 @@ if(process.env.NODE_ENV === 'production') {
         res.sendFile(path.join(__dirname,'client','dist','index.html'))
     })
 
-    PORT = 81
+    PORT = 80
 }
 
 

@@ -54,7 +54,7 @@ router.post('/login', cookieParser(), async (req, res) => {
         if(req.cookies.refreshToken) await SessionModel.deleteByToken(req.cookies.refreshToken)
 
         let {login, password} = req.body
-        let {data} = await axios.post('http://localhost/auth/out_login',{login,password})
+        let {data} = await axios.post(process.env.SSO_IP + '/auth/out_login',{login,password})
 
 
         if(data.answer){
