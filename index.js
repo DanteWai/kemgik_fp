@@ -4,6 +4,7 @@ const path = require('path')
 
 
 
+
 app.use(express.static(path.join(__dirname,'uploads')))
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
@@ -18,6 +19,7 @@ app.use('/api/messages',require('./api/messages_routes'))
 
 app.use('/api/settings',require('./api/settings_routes'))
 
+app.use('/uploads',require('./api/uploads_routes'))
 
 let PORT = 3344
 

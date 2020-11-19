@@ -2,16 +2,6 @@ const {Router} = require('express')
 const router = Router()
 const UserModel = require('../models/User_model')
 
-/*
-*
-*       tableBuilder.increments('id').notNullable()
-        tableBuilder.integer('user_id').notNullable()
-        tableBuilder.jsonb('data')
-        tableBuilder.jsonb('files')
-        tableBuilder.jsonb('options')
-*
-* */
-
 
 
 router.put('/', async (req ,res) => {
