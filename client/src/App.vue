@@ -11,7 +11,8 @@
 
 
     <div id="footer">
-
+      <div><a href="http://kemguki.ru/">Официальный сайт КемГИК</a></div>
+      <div>Разработка сайта: aa502@yandex.ru</div>
     </div>
 
     <!--
@@ -60,10 +61,13 @@
     margin:0;
     padding:0;
   }
+  a{
+    color:#605ca6;
+  }
   #app{
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 60px 1fr 20px;
+    grid-template-rows: 60px 1fr 30px;
     grid-template-columns: 1fr;
   }
   .h1-header{
@@ -82,6 +86,15 @@
 
   #footer{
     background-color: #d9d9d9;
+    padding:0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size:0.9rem;
+    color:#333;
+    a{
+      color:#333;
+    }
   }
 
 </style>

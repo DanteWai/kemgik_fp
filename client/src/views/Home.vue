@@ -5,7 +5,7 @@
       <div class="form-line">
         <div class="form-block">
           <label for="name">Рубрика</label>
-          <input v-model="form.name" id="name" type="text" placeholder="Новость, информация для кафедры и т.д">
+          <input v-model="form.name" id="name" type="text" placeholder="Например: новость, ппс, расписание...">
         </div>
         <div class="form-block">
           <label for="link">Ссылка для указания места размещения информации</label>
@@ -23,12 +23,13 @@
       <div class="form-line">
         <div class="form-block">
           <label for="comment">Комментарий</label>
-          <textarea v-model="form.comment" id="comment" placeholder="Для чего эти данные файлы, куда поставить и т.д."></textarea>
+          <textarea v-model="form.comment" id="comment" placeholder="Дополнительная информация (если есть)"></textarea>
         </div>
       </div>
       <div class="form-line">
         <div class="form-block">
           <label for="contacts">Дополнительные контактные данные для связи</label>
+          <span class="form-block-desc">Если оставить пустым, будут использованы контактные данные из  <router-link :to="{name:'profile_change'}">профиля</router-link></span>
           <input v-model="form.contacts" id="contacts" type="text" placeholder="email, телефон">
         </div>
       </div>
@@ -90,7 +91,9 @@ export default {
     ...mapGetters('files',["filesValid",'abstractFiles','timestamp']),
     ...mapGetters('user',["user","isContacts"]),
     valid(){
-      return Object.values(this.form).some(el => el)
+      return Object.values(this.form).some(el => {
+        if(el !== true && el !== false) return el
+      })
     },
     errorText(){
       if(this.filesValid !== true) return 'Необходимо дождаться загрузки файлов'
@@ -210,7 +213,7 @@ export default {
     .form-line{
       display: flex;
       .feedback{
-        margin-left: auto;
+        margin-left: 10px;
         color:rgb(117, 117, 117);
         margin-right: 10px;
       }
@@ -219,6 +222,11 @@ export default {
         flex:1;
         display: flex;
         flex-direction: column;
+        &-desc{
+          color:#575757;
+          font-size:0.9rem;
+          margin-bottom:5px;
+        }
         label{
           color:#212121;
           font-size: 1.2rem;

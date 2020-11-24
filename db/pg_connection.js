@@ -1,12 +1,8 @@
+const {db} = require('./../config/config');
+
 const client = require('knex')({
     client: 'pg',
-    connection:{
-        host: '127.0.0.1',
-        port: 5432,
-        database: 'kemgik_fp',
-        user: 'postgres',
-        password: 'pepsicola',
-    },
+    connection:db,
 })
 
 module.exports = client

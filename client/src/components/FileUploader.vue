@@ -6,10 +6,11 @@
              @dragleave="dragleave"
              @drop="ondrop"
         >
-
+          <div v-if="abstractFiles.length" class="file-zone-desc">Файлы можно перемещать мышкой</div>
 
             <div class="file-zone">
                 <button type="button" class="clearAll" @click="clearAll">Очистить всё</button>
+
                 <!--
                 <div v-if="currentEditFile" class="edit-name">
                     <label for="filename">Изменить имя файла</label>
@@ -36,9 +37,6 @@
                             <span v-if="file.ext" class="image-ext">{{file.ext}}</span>
                         </template>
                         <img v-else :src="file.imageUrl" :alt="file.name">
-                    </div>
-                    <div class="progress">
-
                     </div>
                     <div class="loading-bar">
                         <span class="progress-bar-count">{{file.uploadProgress}}</span>
@@ -354,7 +352,11 @@
     .file-zone{
         cursor: default;
         @include row-flex();
-
+        &-desc{
+          font-size: 0.9rem;
+          text-align: center;
+          color: #605ca6;
+        }
         .clearAll{
             border:none;
             position: absolute;
