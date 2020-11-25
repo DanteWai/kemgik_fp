@@ -11,19 +11,18 @@ app.use('/auth',require('./api/auth_routes'))
 
 const authMid = require('./middleware/auth')
 const adminMid = require('./middleware/admin')
-app.use(authMid)
 
-app.use('/api/orders',require('./api/orders_routes'))
-app.use('/api/users',adminMid,require('./api/users_routes'))
-app.use('/api/files',require('./api/files_routes'))
-app.use('/api/guides',require('./api/guides_routes'))
-app.use('/api/messages',require('./api/messages_routes'))
+app.use('/api/orders', authMid, require('./api/orders_routes'))
+app.use('/api/users',authMid, adminMid,require('./api/users_routes'))
+app.use('/api/files',require('./api/files_routes')) //todo authMid или проверки в роутах
+app.use('/api/guides',authMid,require('./api/guides_routes'))
+app.use('/api/messages',authMid,require('./api/messages_routes'))
 
-app.use('/api/settings', adminMid, require('./api/settings_routes'))
+app.use('/api/settings',authMid, adminMid, require('./api/settings_routes'))
 
 app.use('/uploads',require('./api/uploads_routes'))
 
-let PORT = 3344
+let PORT = process.env.PORT || 80
 
 
 
@@ -32,8 +31,6 @@ if(process.env.NODE_ENV === 'production') {
     app.get('*', (req,res) =>{
         res.sendFile(path.join(__dirname,'client','dist','index.html'))
     })
-
-    PORT = 80
 }
 
 
