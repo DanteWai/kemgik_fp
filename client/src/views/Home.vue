@@ -8,7 +8,7 @@
           <input v-model="form.name" id="name" type="text" placeholder="Например: новость, ппс, расписание...">
         </div>
         <div class="form-block">
-          <label for="link">Ссылка для указания места размещения информации</label>
+          <label for="link">Ссылка </label>
           <input v-model="form.link" id="link" type="text" placeholder="Например: http://kemguki.ru/science/nii/">
         </div>
       </div>
@@ -28,7 +28,7 @@
       </div>
       <div class="form-line">
         <div class="form-block">
-          <label for="contacts">Дополнительные контактные данные для связи</label>
+          <label for="contacts">Контактные данные</label>
           <span class="form-block-desc">Если оставить пустым, будут использованы контактные данные из  <router-link :to="{name:'profile_change'}">профиля</router-link></span>
           <input v-model="form.contacts" id="contacts" type="text" placeholder="email, телефон">
         </div>
@@ -37,7 +37,7 @@
       <div class="form-line">
         <div class="feedback">
           <input type="checkbox" class="custom-checkbox" id="feedback"  v-model="form.feedback">
-          <label for="feedback">Связаться после выставления</label>
+          <label for="feedback">Сообщить о публикации материала</label>
         </div>
       </div>
 
@@ -55,7 +55,7 @@
 
     <contact-validate v-if="showContactMessages" v-model="showContactMessages">
       <template v-slot:text>
-        <p>В вашем профиле не указаны контактные данные для связи, в таком случае выставление материала не гарантировано.</p>
+        <p>Заявка отправлена, но вашем профиле не указаны контактные данные для связи, в таком случае выставление материала не гарантировано.</p>
       </template>
     </contact-validate>
 
@@ -149,6 +149,9 @@ export default {
     display: inline-flex;
     align-items: center;
     user-select: none;
+    @include sm-block(){
+      font-size: 0.9rem;
+    }
   }
   .custom-checkbox+label::before {
     content: '';
@@ -196,8 +199,11 @@ export default {
 
   .content-wrapper{
     max-width: 1600px;
-    margin:60px auto;
+    margin:50px auto;
     padding: 0 10px;
+    @include sm-block(){
+      margin:10px auto;
+    }
   }
 
   .content{
@@ -206,12 +212,18 @@ export default {
     flex-direction: column;
     background-color: #ffffff;
     box-shadow: 0px 1px 25px rgba(0, 0, 0, 0.1);
+    @include sm-block(){
+      padding: 5px;
+    }
   }
 
 
   .upload-form{
     .form-line{
       display: flex;
+      @include sm-block(){
+        flex-direction: column;
+      }
       .feedback{
         margin-left: 10px;
         color:rgb(117, 117, 117);
@@ -231,6 +243,9 @@ export default {
           color:#212121;
           font-size: 1.2rem;
           margin-bottom: 5px;
+          @include md-block(){
+            font-size: 1rem;
+          }
         }
         input[type=text], textarea{
           padding: 15px 20px;
@@ -239,6 +254,10 @@ export default {
           &:focus{
             border-color: rgb(111, 144, 221);
           }
+          @include sm-block(){
+            padding: 6px 10px;
+            font-size: 0.9rem;
+          }
         }
         textarea{
           font-family: 'Roboto', sans-serif;
@@ -246,6 +265,9 @@ export default {
       }
     }
     .button {
+      @include sm-block(){
+        margin:10px 0;
+      }
       background: #76C880;
       border:none;
       color: #FFFFFF;

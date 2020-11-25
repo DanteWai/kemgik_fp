@@ -2,5 +2,5 @@
 /uploads
 /client/node_modules
 /.idea
-config/config.dev.js
+config/emails.json
 .env

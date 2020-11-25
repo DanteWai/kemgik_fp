@@ -9,13 +9,17 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 app.use('/auth',require('./api/auth_routes'))
 
+const authMid = require('./middleware/auth')
+const adminMid = require('./middleware/admin')
+app.use(authMid)
+
 app.use('/api/orders',require('./api/orders_routes'))
-app.use('/api/users',require('./api/users_routes'))
+app.use('/api/users',adminMid,require('./api/users_routes'))
 app.use('/api/files',require('./api/files_routes'))
 app.use('/api/guides',require('./api/guides_routes'))
 app.use('/api/messages',require('./api/messages_routes'))
 
-app.use('/api/settings',require('./api/settings_routes'))
+app.use('/api/settings', adminMid, require('./api/settings_routes'))
 
 app.use('/uploads',require('./api/uploads_routes'))
 

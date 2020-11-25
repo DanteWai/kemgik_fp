@@ -8,8 +8,8 @@
             </router-link>
             <ul class="menu-items">
                 <template v-if="isLogin">
-                    <router-link v-if="checkRole(['admin'])" tag="li" class="menu-item" :to="{name:'admin'}">Админка</router-link>
-                    <router-link tag="li" class="menu-item" :to="{name:'Home'}">Отправить файлы</router-link>
+
+                    <router-link tag="li" class="menu-item" :to="{name:'Home'}">Главная</router-link>
 
                     <li @click.prevent="openProfile" class="menu-item" :class="{'press':showProfile}">
                             <span>Профиль</span>
@@ -86,6 +86,11 @@
 <style lang="scss" scoped>
     $backGroundColor:#605CA6;
     .profile{
+        @include xs-block(){
+          top:70px;
+          left:0;
+          right:0;
+        }
         color: rgba(146, 135, 146, 0.8);
         background: #FFFFFF;
         box-shadow: 0px 1px 25px rgba(0, 0, 0, 0.2);
@@ -106,6 +111,7 @@
         .profile-content{
             padding: 10px;
             .profile-content-menu{
+
                 display: flex;
                 margin:10px;
                 padding:0;
@@ -137,11 +143,16 @@
     }
     #nav{
         position: relative;
-        height:60px;
+        //height:60px;
         background-color: $backGroundColor;
         padding-left: 20px;
         padding-right: 20px;
         color:#fff;
+      @include xs-block(){
+        //height:70px;
+        padding-left: 0;
+        padding-right: 0;
+      }
 
         .nav-wrapper{
             margin:0 auto;
@@ -150,6 +161,9 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+          @include xs-block(){
+            flex-direction: column;
+          }
         }
 
         .app-name{
@@ -172,10 +186,14 @@
             margin:0;
             padding:0;
             display: flex;
-            .menu-item:hover:not([profile]){
-
-            }
+          @include xs-block(){
+            flex-wrap:wrap;
+          }
             .menu-item{
+              @include xs-block(){
+                position: static;
+                width:50%;
+              }
                 position: relative;
                 height: 100%;
                 display: flex;

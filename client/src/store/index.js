@@ -32,7 +32,6 @@ addResponseHandler(
       if(error.response.status === 401 && error.config.silence401 !== true){
         //await
         store.dispatch('user/cleanUser');
-        console.log(router.app.$route.name)
         if(router.app.$route.name !== 'login') router.app.$router.push('/login')
         //router.push({ name: 'login' })
       }

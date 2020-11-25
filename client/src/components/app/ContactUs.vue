@@ -128,8 +128,10 @@
 
     .contact-us-wrapper{
         margin-top:20px;
-
         text-align: right;
+        @include sm-block(){
+          text-align: center;
+        }
         .contact-us{
             color: rgba(255, 255, 255, 0.8);
 

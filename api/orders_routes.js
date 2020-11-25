@@ -6,13 +6,15 @@ const nodemailer = require("nodemailer");
 const path = require('path')
 const fs = require('fs')
 const {getOffset} = require('./helpres')
+const statuses = require('../untils/statuses')
+const adminMid = require('./../middleware/admin')
 
 //Получение всех заявок
-router.get('/', async (req ,res) => {
+router.get('/', adminMid, async (req ,res) => {
     try {
         let elements = await OrderModel.all(getOffset(req.query.page))
-
         elements = elements.map(el => {
+            el.status = statuses[el.status]
             el.created_at = date.format(new Date(el.created_at), 'YYYY-MM-DD HH:mm:ss')
             el.updated_at = date.format(new Date(el.updated_at), 'YYYY-MM-DD HH:mm:ss')
             return el
@@ -31,7 +33,7 @@ router.get('/count', async (req ,res) => {
     }
 })
 //получение одной заявки
-router.get('/one/:id', async (req ,res) => {
+router.get('/one/:id',adminMid, async (req ,res) => {
     try {
         let element = await OrderModel.one('id', req.params.id)
         return res.json(element)
@@ -46,6 +48,7 @@ router.get('/for_user', async (req ,res) => {
         let orders = await OrderModel.forUser(req.query.user_id,getOffset(req.query.page))
         let count = await OrderModel.count(req.query.user_id)
         orders = orders.map(el => {
+            el.status = statuses[el.status]
             el.created_at = date.format(new Date(el.created_at), 'YYYY-MM-DD HH:mm:ss')
             return el
         })
@@ -82,7 +85,7 @@ router.post('/', async (req ,res) => {
     }
 })
 
-router.put('/:id', async (req ,res) => {
+router.put('/:id',adminMid, async (req ,res) => {
     try {
         let id = req.params.id
         let order = req.body

@@ -4,6 +4,7 @@ import store from "../store";
 
 import Home from '../views/Home.vue'
 import Login from "../views/Login";
+import NoLogin from "../views/pages/NoLogin";
 
 import profile from "../views/profile/profile";
 import profile_files from "../views/profile/profile_files";
@@ -68,6 +69,7 @@ const routes = [
     }},
 
 
+    {path: '/no_login',name: 'NoLogin',component: NoLogin},
     {path: '**',name: 'E404',component: E404, meta: { auth: true }},
 ]
 

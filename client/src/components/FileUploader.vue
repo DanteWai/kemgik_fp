@@ -307,6 +307,9 @@
                 display: inline-block;
                 color:rgba(33, 33, 33, 0.4);;
                 font-size: 1.4rem;
+                @include sm-block(){
+                  font-size: 1rem;
+                }
 
             }
             &-file_icon{
@@ -317,6 +320,9 @@
             }
         }
         .call-to-action-folder{
+            @include xs-block(){
+              display: none;
+            }
             position: absolute;
             text-align: right;
             border-left: 1px solid rgba(18, 18, 18, 0.2);
@@ -415,6 +421,10 @@
             cursor: pointer;
             @include col();
             @include size(2);
+            @include size-lg(3);
+            @include size-md(4);
+            @include size-sm(6);
+            @include size-xs(12);
 
             margin-bottom: 20px;
             border-radius: 3px;
@@ -423,6 +433,18 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             display: flex;
             flex-direction: column;
+            @include sm-block(){
+              text-align: center;
+
+              &-image{
+                display: none;
+              }
+              &-name{
+
+                //margin-top:10px;
+                order:1;
+              }
+            }
 
             .loading-bar{
                 width:95%;
@@ -445,6 +467,13 @@
                     transform: translateX(-50%);
                     color:#3a3673;
 
+                }
+                @include sm-block(){
+                  order:2;
+                  height:10px;
+                  .progress-bar-count{
+                    display:none;
+                  }
                 }
             }
 
@@ -472,8 +501,6 @@
 
             &-name{
                 padding: 5px;
-                max-height: 30px;
-                overflow: hidden;
                 margin-bottom: 5px;
                 font-size: 0.9rem;
             }

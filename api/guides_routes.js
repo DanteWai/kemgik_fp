@@ -3,17 +3,9 @@ const {Router} = require('express')
 const router = Router()
 const GuideModel = require('../models/Guide_model')
 const {getOffset} = require('./helpres')
+const adminMid = require('./../middleware/admin')
 
 
-/*
-*
-*       tableBuilder.increments('id').notNullable()
-        tableBuilder.integer('user_id').notNullable()
-        tableBuilder.jsonb('data')
-        tableBuilder.jsonb('files')
-        tableBuilder.jsonb('options')
-*
-* */
 
 router.get('/', async (req ,res) => {
     let guides = await GuideModel.all(getOffset(req.query.page))
@@ -42,7 +34,7 @@ router.get('/count', async (req ,res) => {
     return res.json(count)
 })
 
-router.post('/', async (req ,res) => {
+router.post('/',adminMid, async (req ,res) => {
     try {
         let guide = req.body
         await GuideModel.add(guide)
@@ -52,7 +44,7 @@ router.post('/', async (req ,res) => {
     }
 })
 
-router.put('/', async (req ,res) => {
+router.put('/',adminMid, async (req ,res) => {
     try {
         let guide = req.body
         await GuideModel.update(guide,'id',guide.id)
@@ -62,7 +54,7 @@ router.put('/', async (req ,res) => {
     }
 })
 
-router.delete('/:id', async (req ,res) => {
+router.delete('/:id',adminMid, async (req ,res) => {
     try {
         await GuideModel.delete('id', req.params.id)
         return res.json({res:true})

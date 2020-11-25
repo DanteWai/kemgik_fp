@@ -5,6 +5,9 @@
     <v-alerts v-if="$store.getters['alerts/isAlerts']"></v-alerts>
 
     <div id="content">
+      <div class="admin-link" >
+        <router-link v-if="checkRole(['admin'])" :to="{name:'admin'}">Админка</router-link>
+      </div>
       <router-view/>
     </div>
 
@@ -27,6 +30,7 @@
 
   import Nav from "./components/app/Nav";
   import Alerts from "./components/Alerts";
+  import {mapGetters} from "vuex";
 
   export default  {
     components:{
@@ -37,6 +41,9 @@
     data: () => ({
 
     }),
+    computed:{
+      ...mapGetters('user',['checkRole'])
+    },
   }
 </script>
 
@@ -64,16 +71,28 @@
   a{
     color:#605ca6;
   }
+  p{
+    margin: 10px 0 0;
+  }
+  ul {
+    margin:5px 0 0;
+  }
   #app{
     min-height: 100vh;
     display: grid;
-    grid-template-rows: 60px 1fr 30px;
+    grid-template-rows: min(60px) 1fr 30px;
     grid-template-columns: 1fr;
+    /*@include xs-block(){
+      grid-template-rows: 80px 1fr 30px;
+    }*/
   }
   .h1-header{
     color: #8c8c8c;
     font-weight: 400;
     font-size: 1.6rem;
+    @include sm-block(){
+      font-size: 1.2rem;
+    }
   }
 
   .flex{display: flex}
@@ -83,6 +102,11 @@
   .mb10{ margin-bottom:10px;}
 
   .w100{width: 100%;}
+
+  .admin-link{
+    margin-top:10px;
+    text-align: center;
+  }
 
   #footer{
     background-color: #d9d9d9;
@@ -94,6 +118,9 @@
     color:#333;
     a{
       color:#333;
+    }
+    @include sm-block(){
+      flex-direction: column;
     }
   }
 

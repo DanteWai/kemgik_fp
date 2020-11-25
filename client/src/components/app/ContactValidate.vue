@@ -43,29 +43,33 @@
         left:50%;
         transform: translateX(-50%);
         background-color: #fff;
-        padding: 15px;
+        padding: 20px;
         box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.3);
+        border-radius: 15px;
 
         p{
-            color: #333;
+          color: #333;
+          margin:10px 0;
         }
 
         .cc-body-buttons{
+          margin-top:20px;
             button{
                 border:none;
-                padding: 10px 20px;
-                font-weight: bold;
-                font-size: 0.9rem;
+                padding: 10px 25px;
+                font-size: 1rem;
+                font-weight:300;
                 cursor: pointer;
                 background-color: #fff;
                 color: #333;
             }
             .cc-link{
-                background-color: #285895;
+              border-radius:5px;
+                background-color: #5F2EEA;
                 color:#fff;
                 margin-right: 10px;
                 &:hover{
-                    background-color: darken(#285895, 10);
+                    background-color: darken(#5F2EEA, 10);
                 }
             }
 

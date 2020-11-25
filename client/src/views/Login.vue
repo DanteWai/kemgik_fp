@@ -1,14 +1,16 @@
 <template>
-    <section class="form animated flipInX">
+    <section class="form animated">
         <h2>Войти в аккаунт</h2>
-        <p class="valid">Успех. Пожалуйста подождите.</p>
-        <p class="error">Ошибка. Введите корректный логин &amp; паролт.</p>
         <form @submit.prevent="formHandler" class="loginbox" autocomplete="off">
             <input v-model="login" placeholder="Логин" type="text" id="login"/>
             <input v-model="password" placeholder="Пароль" type="password" id="password"/>
             <button :disabled="!valid" id="submit">Войти</button>
         </form>
-
+      <div class="desc">
+        <p>Для входа используются общевузовские логин и пароль.</p>
+        <p>Например. Логин: 701111, пароль: 305-205.</p>
+        <p><router-link :to="{name:'NoLogin'}">Нет логина и пароля</router-link></p>
+      </div>
     </section>
 </template>
 
@@ -37,14 +39,18 @@
 
 <style lang="scss" scoped>
     .form {
-        position: absolute;
-        top: 50%;
-        left: 50%;
+      margin:50px auto;
         background: #fff;
-        width: 285px;
-        margin: -140px 0 0 -182px;
+        width: 300px;
+
         padding: 40px;
         box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+      @include sm-block(){
+        width: 280px;
+        margin:10px auto;
+        padding:15px;
+      }
+
     h2 {
         margin: 0 0 20px;
         line-height: 1;
@@ -85,6 +91,11 @@
             background: #cecece;
         }
     }
+
+      .desc{
+        font-size:0.9rem;
+        color:#5e5e5e;
+      }
 }
 
     .error, .valid{display:none;}

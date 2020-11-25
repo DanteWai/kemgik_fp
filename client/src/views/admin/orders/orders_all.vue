@@ -2,9 +2,6 @@
     <div>
 
         <div class="content">
-            <div>
-                <router-link class="admin_button save mb10" :to="{name:'admin_orders_add'}">Добавить элемент</router-link>
-            </div>
            <div v-if="elements.length === 0">Элементов нет</div>
             <simple-table v-else
                           :headers="headers"

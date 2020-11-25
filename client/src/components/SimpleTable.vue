@@ -4,15 +4,15 @@
             <thead>
             <tr>
                 <th v-for="header in headers" :key="header.value">
-                    {{header.name}}
+                  {{header.name}}
                 </th>
             </tr>
             </thead>
             <tbody>
 
             <template v-if="routerName">
-                <router-link class="td-link" :class="{'no-check':check && !item.checked}"  tag="tr" :to="{name:routerName, params:{id:item.id,page}}" v-for="(item, key) in data">
-                    <td v-for="header in headers">
+                <router-link class="td-link" :class="{'no-check':check && !item.checked}"  tag="tr" :to="{name:routerName, params:{id:item.id,page}}" v-for="(item, key) in data" :key="key">
+                    <td v-for="header in headers" :key="header">
                         <slot :name="'item.'+ [header.value]" :item="item[header.value]" :iteration="key">
                             {{item[header.value]}}
                         </slot>
@@ -21,8 +21,8 @@
             </template>
 
             <template v-if="!routerName">
-                <tr v-for="(item, key) in data">
-                    <td v-for="header in headers">
+                <tr v-for="(item, key) in data" :key="key">
+                    <td v-for="header in headers" :key="header.value">
                         <slot :name="'item.'+ [header.value]" :item="item[header.value]" :iteration="key">
                             {{item[header.value]}}
                         </slot>

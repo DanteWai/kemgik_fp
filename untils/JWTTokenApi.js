@@ -27,7 +27,7 @@ class JWTTokenApi{
         return {token, expires, cookieOptions}
     }
 
-    checkAT(token){
+    checkAT(token, howObj = false){
         if(!token)  return false
         let index = token.indexOf('Bearer ')
         if(index !== 0) return false
@@ -37,7 +37,8 @@ class JWTTokenApi{
         if(!(jwt.sign(decode_input_at, sk) === input_at)) return false
         if(decode_input_at.exp < Math.floor(Date.now() / 1000)) return false
 
-        return true
+        if(howObj) return {res:true, data:decode_input_at}
+        else return true
     }
 
     getDbRowForRT(user_id, rt, userAgent, ip){
