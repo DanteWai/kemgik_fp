@@ -1,8 +1,7 @@
 <template>
-    <div class="content-wrapper">
-            <h1 class="h1-header">Отправленные заявки</h1>
+    <div>
             <div class="content" v-if="orders && orders.length ===0">Загруженных файлов пока нет</div>
-            <div v-else>
+            <div class="shadow" v-else>
                 <simple-table
                     :headers="headers"
                     :data="orders"

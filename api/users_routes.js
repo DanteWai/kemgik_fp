@@ -3,6 +3,13 @@ const router = Router()
 const UserModel = require('../models/User_model')
 
 
+router.get('/:id', async (req ,res) => {
+    try {
+        return res.status(200).json(await UserModel.findByID(req.params.id))
+    } catch (e) {
+        return res.status(500).json({res:false})
+    }
+})
 
 router.put('/', async (req ,res) => {
     try {

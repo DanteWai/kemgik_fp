@@ -9,34 +9,22 @@
             </tr>
             </thead>
             <tbody>
+            <router-link :class="{'no-check':check && !item.checked, 'td-link':routerName}"  tag="tr"
+                         :to="routerName ? {name:routerName, params:{id:item.id,page}} : {}"
+                         v-for="(item, key) in data" :key="item.id ? item.id : key">
 
-            <template v-if="routerName">
-                <router-link class="td-link" :class="{'no-check':check && !item.checked}"  tag="tr" :to="{name:routerName, params:{id:item.id,page}}" v-for="(item, key) in data" :key="key">
-                    <td v-for="header in headers" :key="header">
-                        <slot :name="'item.'+ [header.value]" :item="item[header.value]" :iteration="key">
-                            {{item[header.value]}}
-                        </slot>
-                    </td>
-                </router-link>
-            </template>
+                <td v-for="header in headers" :key="header.value">
+                    <slot :name="'item.'+ [header.value]" :item="item[header.value]" :iteration="key">{{item[header.value]}}</slot>
+                </td>
 
-            <template v-if="!routerName">
-                <tr v-for="(item, key) in data" :key="key">
-                    <td v-for="header in headers" :key="header.value">
-                        <slot :name="'item.'+ [header.value]" :item="item[header.value]" :iteration="key">
-                            {{item[header.value]}}
-                        </slot>
-                    </td>
-                </tr>
-            </template>
-
+            </router-link>
             </tbody>
         </table>
         <div class="table-footer">
 
             <div v-if="count>15" class="pagination">
-                <span @click="prevPage" :class="{active:page!==1}" class="prev">предыдущая</span>
-                <span @click="nextPage" :class="{active:page!==allPage}" class="next">следующая</span>
+                <span @click="prevPage" :class="{active:page!==1}" class="prev">назад</span>
+                <span @click="nextPage" :class="{active:page!==allPage}" class="next">вперед</span>
             </div>
             <div class="count">Всего: {{count}}</div>
         </div>
@@ -73,8 +61,6 @@
         created() {
             if(this.startPage)
                 this.page = this.startPage
-
-            console.log(this.routerName)
         }
 
     }
@@ -91,6 +77,7 @@
         border-collapse: collapse;
         background-color: #fff;
         border: 1px solid #f2f2f2;
+
         th{
             text-align: left;
             padding: 16px 14px;
@@ -137,7 +124,7 @@
     }
 
     .no-check{
-        color: #ff0707;
+        color: #2593D5;
     }
 
 

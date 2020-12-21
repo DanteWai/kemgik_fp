@@ -8,13 +8,13 @@ module.exports = {
             })
     },
     devServer:{
-        proxy:"http://localhost:3344"
+        proxy:"http://localhost:81"
     },
     css:{
         loaderOptions:{
             scss:{
                 prependData:`
-                    @import "./src/smart-grid.scss";
+                    @import "./src/assets/scss/main.scss";
                 `
             }
         }

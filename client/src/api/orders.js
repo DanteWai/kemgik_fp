@@ -41,3 +41,10 @@ export async function count(){
     let { data } = await server.get('api/orders/count', { errorSuppression: { text: 'при получении заявок'}});
     return data;
 }
+
+export async function transfer(payload){
+    let { data } = await server.post('api/orders/transfer', payload, {
+        errorSuppression: { text: 'при переносе файлов' }
+    });
+    return data;
+}

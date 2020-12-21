@@ -1,6 +1,5 @@
 <template>
-    <div class="content-wrapper">
-        <h1 class="h1-header">Изменение профиля</h1>
+    <div>
             <form class="content upload-form" @submit.prevent="formSubmit">
                 <div class="form-line">
                     <div class="form-block">
@@ -45,6 +44,7 @@
     import isEmail from 'validator/lib/isEmail';
     import isMobilePhone from 'validator/lib/isMobilePhone';
     export default {
+
         name: "profile_change",
         data: () => ({
             email:'',

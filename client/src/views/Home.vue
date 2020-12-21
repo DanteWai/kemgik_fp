@@ -211,10 +211,14 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
-    box-shadow: 0px 1px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 25px rgba(0, 0, 0, 0.1);
     @include sm-block(){
       padding: 5px;
     }
+  }
+
+  .shadow{
+    box-shadow: 0 1px 25px rgba(0, 0, 0, 0.1);
   }
 
 

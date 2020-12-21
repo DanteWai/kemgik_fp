@@ -1,5 +1,6 @@
 <template>
-    <div  class="select">
+    <div  class="select" :class="view">
+        <div v-if="label" class="label">{{label}}</div>
         <div class="select-title" @click="openSelector">
             {{text}}
         </div>
@@ -17,13 +18,22 @@
 <script>
     export default {
         name: "SimpleSelector",
-        props:['startValue', 'items'],
+        props:{
+          startValue:String,
+          label:String,
+          items:Object,
+          view:{
+            type:String,
+            default:'flat'
+          }
+        },
         data:()=>({
             text:'Выбрать',
             value:null,
             show:false,
             isEvent:false
         }),
+
         methods:{
             optionClick(item,key){
                 if(this.value !== key){
@@ -60,33 +70,78 @@
 <style lang="scss" scoped>
     .select{
         position: relative;
-        .select-title{
-            border:1px solid #f2f2f2;
-            display: inline-block;
-            padding: 5px 15px;
-            color:#f2f2f2;
-            background-color: #1c588c;
-            cursor: pointer;
-            &:hover{
-                background-color: darken(#1c588c,10);
-            }
-        }
-        .select-options{
-            position: absolute;
+    }
 
-            color:#666;
-            border:1px solid #f2f2f2;
-            border-bottom: none;
-            background-color: #fff;
-            z-index: 1;
-            .select-option{
-                padding: 5px 15px;
-                border-bottom: 1px solid #f2f2f2;
-                cursor: pointer;
-                &:hover{
-                    color:#1c588c;
-                }
-            }
+    .label{
+      color:#605ca6;
+      font-size:0.75rem;
+      margin-bottom:1px;
+      position: absolute;
+      left:10px;
+      transform: translateY(-50%);
+      background:#fff;
+      padding:0 3px;
+    }
+
+    .flat{
+      .select-title{
+        border:1px solid #605ca6;
+        display: inline-block;
+        padding: 5px 15px;
+        color:#f2f2f2;
+        background-color: #605ca6;
+        cursor: pointer;
+        &:hover{
+          background-color: darken(#605ca6,10);
         }
+      }
+      .select-options{
+        position: absolute;
+
+        color:#666;
+        border:1px solid #f2f2f2;
+        border-bottom: none;
+        background-color: #fff;
+        z-index: 1;
+        .select-option{
+          padding: 5px 15px;
+          border-bottom: 1px solid #f2f2f2;
+          cursor: pointer;
+          &:hover{
+            color:#1c588c;
+          }
+        }
+      }
+    }
+
+    .outline{
+      .select-title{
+        border:1px solid #605ca6;
+        display: inline-block;
+        padding: 10px 30px;
+        color:#605ca6;
+        cursor: pointer;
+        &:hover{
+          border-color: darken(#605ca6,10);
+          color: darken(#605ca6,10);
+        }
+      }
+      .select-options{
+        position: absolute;
+
+        color:#666;
+        border:1px solid #f2f2f2;
+        border-bottom: none;
+        background-color: #fff;
+        z-index: 1;
+        .select-option{
+          padding: 5px 15px;
+          border-bottom: 1px solid #f2f2f2;
+          cursor: pointer;
+          &:hover{
+            color:#1c588c;
+          }
+        }
+      }
     }
 </style>

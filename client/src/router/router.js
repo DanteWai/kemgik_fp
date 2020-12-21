@@ -5,6 +5,7 @@ import store from "../store";
 import Home from '../views/Home.vue'
 import Login from "../views/Login";
 import NoLogin from "../views/pages/NoLogin";
+import Versions from "../views/pages/Versions";
 
 import profile from "../views/profile/profile";
 import profile_files from "../views/profile/profile_files";
@@ -70,6 +71,7 @@ const routes = [
 
 
     {path: '/no_login',name: 'NoLogin',component: NoLogin},
+    {path: '/versions',name: 'Versions',component: Versions},
     {path: '**',name: 'E404',component: E404, meta: { auth: true }},
 ]
 
@@ -82,13 +84,7 @@ const router = new VueRouter({
 router.beforeEach(async (to, from, next) => {
   if(to.matched.some(route => route.meta.auth)){
     await store.getters['user/ready'];
-
-    if(!store.getters['user/isLogin']){
-      next({ name: 'login' });
-    }
-    else{
-      next();
-    }
+    store.getters['user/isLogin'] ? next() : next({ name: 'login' })
   }
   else{
     next();

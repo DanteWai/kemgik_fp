@@ -37,16 +37,7 @@ class User extends model{
         or sso_data ->> 'login' like '%${search}%';`)
     }
 
-    /*
-    *select * from users
-        where sso_data ->> 'fam' like '%${search}%'
-        or sso_data ->> 'name' like '%${search}%'
-        or sso_data ->> 'ot' like '%${search}%'
-        or sso_data ->> 'login' like '%${search}%'
-        offset ${offset}
-        ;`)
 
-    * */
 
     async update(user) {
         return super.update(user, 'id', user.id);

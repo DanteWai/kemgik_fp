@@ -22,7 +22,7 @@ export default {
     actions: {
         async add({state, getters, commit,dispatch},  payload){
             if(payload.files.length > 0){
-                payload.files = payload.files.map(file => ({id:file.name, name:file.name, ext:file.ext, path:file.path}))
+                payload.files = payload.files.map(file => ({id:file.name+file.ext, name:file.name, ext:file.ext, path:file.path, isImage:file.isImage}))
             }
             let { ok, data } = await ordersApi.add(payload);
             if(ok && data)
@@ -49,6 +49,11 @@ export default {
                 commit('setElements', data.orders)
                 commit('setElementsCount', data.count)
             }
+        },
+        async transferElement({commit,dispatch}, element){
+            let { ok, data } = await ordersApi.transfer(element)
+            if(ok && data)
+                dispatch('alerts/add', {text:'Заявка успешно выгружена', timeout:4000,type:'success'}, {root:true})
         },
     }
 }

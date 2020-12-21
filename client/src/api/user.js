@@ -6,3 +6,10 @@ export async function changeContacts(payload){
     });
     return data;
 }
+
+export async function geyById(id){
+    let { data } = await server.get('api/users/'+id, {
+        errorSuppression: { text: 'при получении' }
+    });
+    return data;
+}

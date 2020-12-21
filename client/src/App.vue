@@ -5,17 +5,15 @@
     <v-alerts v-if="$store.getters['alerts/isAlerts']"></v-alerts>
 
     <div id="content">
-      <div class="admin-link" >
-        <router-link v-if="checkRole(['admin'])" :to="{name:'admin'}">Админка</router-link>
-      </div>
       <router-view/>
     </div>
 
 
 
     <div id="footer">
-      <div><a href="http://kemguki.ru/">Официальный сайт КемГИК</a></div>
-      <div>Разработка сайта: aa502@yandex.ru</div>
+      <div>© KemGIK FileUploader 2020 <sup>v. 1.0.6</sup></div>
+      <div><a target="_blank" href="http://kemguki.ru/">Официальный сайт КемГИК</a></div>
+      <div>Разработка сайта: Сафронов Д.А.<br>aa502@yandex.ru</div>
     </div>
 
     <!--
@@ -80,11 +78,8 @@
   #app{
     min-height: 100vh;
     display: grid;
-    grid-template-rows: min(60px) 1fr 30px;
+    grid-template-rows: auto 1fr auto;
     grid-template-columns: 1fr;
-    /*@include xs-block(){
-      grid-template-rows: 80px 1fr 30px;
-    }*/
   }
   .h1-header{
     color: #8c8c8c;
@@ -103,24 +98,29 @@
 
   .w100{width: 100%;}
 
-  .admin-link{
-    margin-top:10px;
-    text-align: center;
-  }
-
   #footer{
-    background-color: #d9d9d9;
-    padding:0 15px;
+    background: #434343 linear-gradient(#333, #434343);
+    padding:20px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size:0.9rem;
-    color:#333;
+    color:#f2f2f2;
+    >div{
+      text-align:center;
+    }
+    sup{
+      font-size:0.7rem;
+    }
     a{
-      color:#333;
+      color:#f2f2f2;
+      &:hover{
+        text-decoration:none;
+      }
     }
     @include sm-block(){
       flex-direction: column;
+      padding:10px 20px;
     }
   }
 

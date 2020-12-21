@@ -73,6 +73,13 @@ export default {
                     commit('setUser', user);
                 }
             }
+        },
+
+        async returnUser({},id){
+            let { ok,  data} = await userApi.geyById(id)
+            if(ok){
+                return data
+            }
         }
 
     },

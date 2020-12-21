@@ -14,7 +14,7 @@ const adminMid = require('./middleware/admin')
 
 app.use('/api/orders', authMid, require('./api/orders_routes'))
 app.use('/api/users',authMid, adminMid,require('./api/users_routes'))
-app.use('/api/files',require('./api/files_routes')) //todo authMid или проверки в роутах
+app.use('/api/files', require('./api/files_routes')) //todo authMid или проверки в роутах
 app.use('/api/guides',authMid,require('./api/guides_routes'))
 app.use('/api/messages',authMid,require('./api/messages_routes'))
 
@@ -25,7 +25,6 @@ app.use('/uploads',require('./api/uploads_routes'))
 let PORT = process.env.PORT || 80
 
 
-
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname,'client/dist')))
     app.get('*', (req,res) =>{
@@ -34,9 +33,9 @@ if(process.env.NODE_ENV === 'production') {
 }
 
 
-
 try{
     app.listen(PORT, () => {console.log(`Server is running on port ${PORT}`)})
+    require('./untils/garbageCollector').start()
 } catch(e){
     console.log(e)
 }
