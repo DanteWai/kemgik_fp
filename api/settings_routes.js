@@ -52,11 +52,11 @@ router.put('/users/:id', async (req ,res) => {
 })
 
 router.get('/f_memory', async (req ,res) => {
-    const disk = require('diskusage');
+    const disk = require('check-disk-space');
     const os = require('os');
 
-    let path = os.platform() === 'win32' ? 'c:' : '/';
-    let info = await disk.check(path)
+    let path = os.platform() === 'win32' ? 'C:' : '/';
+    let info = await disk(path)
     let free = info.free / (1024 * 1024 * 1024)
 
     return res.json(free.toFixed(3))

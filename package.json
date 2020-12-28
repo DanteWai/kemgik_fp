@@ -12,11 +12,10 @@
   "dependencies": {
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
-    "busboy": "^0.3.1",
+    "check-disk-space": "^2.1.0",
     "cookie-parser": "^1.4.5",
     "cron": "^1.8.2",
     "date-and-time": "^0.14.1",
-    "diskusage": "^1.1.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
