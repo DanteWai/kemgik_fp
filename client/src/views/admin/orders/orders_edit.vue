@@ -12,7 +12,8 @@
                     <span>Создан: </span><span>{{element.created_at}}</span>
                   </div>
 
-                  <file-viewer class="files" :files=element.files></file-viewer>
+                  <file-viewer v-if="!element.unload" class="files" :files=element.files></file-viewer>
+                  <div v-else>Файлы выгружены в локальную директорию: {{element.options.unloadPath}}</div>
 
                   <simple-selector class="selector" :start-value="element.status" :items="statuses" view="outline"  label="Статус" @changeValue="changeStatus"/>
 
@@ -34,18 +35,12 @@
                 </div>
 
                 <div class="form-line">
-                  <!--  <input class="admin_button save m10" :disabled="true" type="submit" value="Сохранить"> -->
-                   <input v-if="element.files.length > 0" @click="transfer" class="admin_button delete m10" type="button" value="Выгрузить">
+                   <input v-if="idUpload" @click="transfer" class="admin_button delete m10" type="button" value="Выгрузить">
                 </div>
               </template>
 
               <e404 v-else></e404>
             </template>
-
-
-
-
-
         </div>
 
 </template>
@@ -69,31 +64,31 @@
             statuses:statuses
         }),
         computed:{
-
+          idUpload(){
+            return this.element.files.length > 0 && !this.element.unload
+          }
         },
         methods:{
-          changeStatus(value){
-            this.update({id:this.element.id, status:value})
-          },
+            changeStatus(value){
+              this.update({id:this.element.id, status:value})
+            },
 
-            transfer(){
+            async transfer(){
                 if(confirm('Выгрузить элемент')){
-                  this.transferElement(this.element)
+                  await this.transferElement(this.element)
+                  this.element = await this.getElement(this.element.id)
                 }
+
             },
             ...mapActions('order',['getElement','update','transferElement'])
         },
         async created() {
             this.element = await this.getElement(this.$route.params.id)
-            this.page = this.$route.params.page || 1
             this.isRequest = true
-            if(this.element && this.element.checked === false){
-              this.update({id:this.element.id, checked:true})
-            }
+            this.page = this.$route.params.page || 1
 
-          if(this.element)
-              this.user = await this.$store.dispatch('user/returnUser', this.element.user_id)
-
+            if(this.element && this.element.checked === false) this.update({id:this.element.id, checked:true})
+            if(this.element) this.$store.dispatch('user/returnUser', this.element.user_id).then(answer => this.user = answer)
         }
     }
 </script>
@@ -114,6 +109,9 @@
       }
       .files{
         margin-bottom:20px;
+      }
+      .selector{
+        margin-top:20px;
       }
 
 

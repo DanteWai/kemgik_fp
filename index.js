@@ -13,7 +13,7 @@ const authMid = require('./middleware/auth')
 const adminMid = require('./middleware/admin')
 
 app.use('/api/orders', authMid, require('./api/orders_routes'))
-app.use('/api/users',authMid, adminMid,require('./api/users_routes'))
+app.use('/api/users',authMid,require('./api/users_routes'))
 app.use('/api/files', require('./api/files_routes')) //todo authMid или проверки в роутах
 app.use('/api/guides',authMid,require('./api/guides_routes'))
 app.use('/api/messages',authMid,require('./api/messages_routes'))

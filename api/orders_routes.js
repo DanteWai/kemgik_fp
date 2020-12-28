@@ -9,6 +9,7 @@ const {getOffset} = require('./helpres')
 const statuses = require('../untils/statuses.json')
 const adminMid = require('./../middleware/admin')
 const forEach = require('lodash/forEach')
+const slug = require('slug')
 
 //Получение всех заявок
 router.get('/', adminMid, async (req ,res) => {
@@ -66,6 +67,7 @@ router.post('/', async (req ,res) => {
         order.status = 'sent'
 
 
+
         //Удаление лишних файлов в папке
         if(order.files.length > 0) {
             let filesArray = [...order.files]
@@ -77,8 +79,9 @@ router.post('/', async (req ,res) => {
                 if(!~check) {
                     fs.promises.unlink(path.join(dirPath,file))
                 } else{
-                    fs.promises.rename(path.join(dirPath,file), path.join(dirPath,`${key+1}. ${file}`))
-                    filesArray[check].name = `${key+1}. ${filesArray[check].name}`
+                    let name = `${key+1}. `+slug(filesArray[check].name)
+                    fs.promises.rename(path.join(dirPath,file), path.join(dirPath,name + '.' + filesArray[check].ext))
+                    filesArray[check].name = name
                 }
             })
             order.files = JSON.stringify(filesArray)
@@ -125,43 +128,37 @@ router.put('/:id',adminMid, async (req ,res) => {
     }
 })
 
-router.post('/transfer', async (req ,res) => {
+router.post('/transfer', adminMid, async (req ,res) => {
     try {
-        let {files} = req.body
+
+        let order = req.body
+        let files = order.files
 
         if(files.length > 0){
             let dirPath = path.join(__dirname,'..',files[0].path)
             let directoryFiles = await fs.promises.readdir(dirPath)
+            let folderPath = process.env.STORAGE_FOLDER
+            let newPath = folderPath + files[0].path.split('/').filter((el, key) => key !== 1).join('/')
 
-            //const folderPath = '//DESKTOP-G5M2ENJ/filePlatformArch'; //work
-            const folderPath = '//WIN-JNNA5MBKSTE/filePlatformArch'; ///home
-            let newPath = files[0].path.split('/')
-            newPath.splice(1,1)
-            newPath = folderPath + newPath.join('/')
-
-            if (!fs.existsSync(newPath)) {
-                await fs.promises.mkdir(newPath, {recursive: true})
-            }
-
+            if (!fs.existsSync(newPath)) await fs.promises.mkdir(newPath, {recursive: true})
 
             let promises = directoryFiles.reduce((result, file) => {
                 return result.push(fs.promises.copyFile(path.join(dirPath,file), path.join(newPath,file))) && result
             },[])
-
-
-
-
-
             await Promise.allSettled(promises)
 
+
+            let options = {...order.options, unloadPath:newPath}
+            await OrderModel.update({options,unload:true},'id',order.id)
             fs.promises.rmdir(dirPath,{recursive:true})
         }
 
 
 
 
-        return res.json({res:true})
+        return res.json({res:true, unload: true})
     } catch (e) {
+        console.log(e)
         return res.status(500).json({res:false,error:e.message})
     }
 })
@@ -170,5 +167,7 @@ router.post('/transfer', async (req ,res) => {
 
 
 module.exports = router
+
+
 
 

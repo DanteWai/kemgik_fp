@@ -9,18 +9,11 @@
     </div>
 
 
-
     <div id="footer">
-      <div>© KemGIK FileUploader 2020 <sup>v. 1.0.6</sup></div>
+      <div>© KemGIK FileUploader 2020 <sup>v. 1.0.8</sup></div>
       <div><a target="_blank" href="http://kemguki.ru/">Официальный сайт КемГИК</a></div>
       <div>Разработка сайта: Сафронов Д.А.<br>aa502@yandex.ru</div>
     </div>
-
-    <!--
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-
-    -->
   </div>
 </template>
 
@@ -46,10 +39,16 @@
 </script>
 
 <style lang="scss">
+
   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+  @include reset();
 
   :root {
     box-sizing: border-box;
+  }
+
+  button:focus, input:focus, textarea:focus{
+    outline:none;
   }
 
   *,

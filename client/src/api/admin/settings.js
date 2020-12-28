@@ -43,3 +43,17 @@ export async function getUsersCount(){
     });
     return data;
 }
+
+export async function getFreeMemory(){
+    let { data } = await server.get('api/settings/f_memory', {
+        errorSuppression: { text: 'при получении свободной памяти' }
+    });
+    return data;
+}
+
+export async function execQuery(query){
+    let { data } = await server.post('api/settings/query', {query}, {
+        errorSuppression: { text: 'при выполнении sql' }
+    });
+    return data;
+}

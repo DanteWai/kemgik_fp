@@ -9,11 +9,13 @@ export default {
         users:[],
         oldUsers:{},
         usersCount:0,
+        freeMemory:null,
     },
     getters: {
         emails:state => state.emails,
         users:state => state.users,
         usersCount:state => state.usersCount,
+        freeMemory:state => state.freeMemory,
     },
     mutations: {
         setEmails(state, emails){
@@ -56,7 +58,8 @@ export default {
         },
         setUsersCount(state, count){
             state.usersCount = count
-        }
+        },
+        setFreeMemory:(state, freeMemory) => state.freeMemory = freeMemory
     },
     actions: {
         async getEmails({commit}){
@@ -102,6 +105,20 @@ export default {
             let { ok, data } = await settingsApi.getUsersCount();
             if(ok && data){
                 commit('setUsersCount', data.count)
+            }
+        },
+        async getFreeMemory({commit}){
+            let { ok, data } = await settingsApi.getFreeMemory();
+            if(ok && data){
+                commit('setFreeMemory',data)
+            }
+        },
+        async execQuery({dispatch}, query){
+            let { ok, data } = await settingsApi.execQuery(query);
+            if(ok && data){
+
+                dispatch('alerts/add', {text:'Запрос выполнен успешно', timeout:3000,type:'success'}, {root:true})
+                return data.data
             }
         },
 

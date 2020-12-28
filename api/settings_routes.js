@@ -51,6 +51,29 @@ router.put('/users/:id', async (req ,res) => {
     return res.json({res:true})
 })
 
+router.get('/f_memory', async (req ,res) => {
+    const disk = require('diskusage');
+    const os = require('os');
+
+    let path = os.platform() === 'win32' ? 'c:' : '/';
+    let info = await disk.check(path)
+    let free = info.free / (1024 * 1024 * 1024)
+
+    return res.json(free.toFixed(3))
+})
+
+router.post('/query', async (req ,res) => {
+
+    try{
+        const {query} = req.body
+        let data = await UserModel.client.raw(query)
+        return res.json({res:true,data})
+    } catch (e) {
+        return res.status(500).json({res:false,error:e.message})
+    }
+
+})
+
 
 
 

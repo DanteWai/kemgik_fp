@@ -11,24 +11,27 @@ import profile from "../views/profile/profile";
 import profile_files from "../views/profile/profile_files";
 import profile_change from "../views/profile/profile_change";
 
-import admin_index from "../views/admin/admin_index";
+//import admin_index from "@/views/admin/admin_index";
+const admin_index = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/admin_index.vue')
 
-import admin_orders from "../views/admin/orders/orders_index";
-import admin_orders_all from "../views/admin/orders/orders_all";
-import admin_orders_edit from "../views/admin/orders/orders_edit";
+const admin_orders = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/orders/orders_index.vue')
+const admin_orders_all = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/orders/orders_all.vue')
+const admin_orders_edit = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/orders/orders_edit.vue')
 
-import admin_messages from "../views/admin/messages/messages_index";
-import admin_messages_all from "../views/admin/messages/messages_all";
-import admin_messages_show from "../views/admin/messages/messages_show";
+const admin_messages = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/messages/messages_index.vue')
+const admin_messages_all = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/messages/messages_all.vue')
+const admin_messages_show = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/messages/messages_show.vue')
 
-import admin_guides from "../views/admin/guides/guides_index";
-import admin_guides_all from "../views/admin/guides/guides_all";
-import admin_guides_add from "../views/admin/guides/guides_add";
-import admin_guides_edit from "../views/admin/guides/guides_edit";
+const admin_guides = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/guides/guides_index.vue')
+const admin_guides_all = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/guides/guides_all.vue')
+const admin_guides_add = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/guides/guides_add.vue')
+const admin_guides_edit = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/guides/guides_edit.vue')
 
-import admin_settings from "../views/admin/settings/settings_index";
-import admin_settings_emails from "../views/admin/settings/settings_emails";
-import admin_settings_users from "../views/admin/settings/settings_users";
+const admin_settings = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/settings/settings_index.vue')
+const admin_settings_emails = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/settings/settings_emails.vue')
+const admin_settings_users = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/settings/settings_users.vue')
+const admin_settings_sql = () => import(/* webpackChunkName: "group-admin" */ '@/views/admin/settings/settings_sql.vue')
+
 
 import E404 from "../components/E404";
 
@@ -61,6 +64,7 @@ const routes = [
             {path:'settings',redirect: {name:'admin_settings_users'}, component:admin_settings, name:'admin_settings', children:[
                     {path:'emails', component:admin_settings_emails, name:'admin_settings_emails'},
                     {path:'users', component:admin_settings_users, name:'admin_settings_users'},
+                    {path:'sql', component:admin_settings_sql, name:'admin_settings_sql'},
                 ]},
         ]},
 

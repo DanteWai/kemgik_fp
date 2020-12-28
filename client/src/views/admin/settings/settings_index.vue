@@ -4,16 +4,28 @@
 
             <router-link active-class="active" :to="{name:'admin_settings_users'}" class="left-menu-classic-elem">Пользователи</router-link>
             <router-link active-class="active" :to="{name:'admin_settings_emails'}" class="left-menu-classic-elem">Emails</router-link>
+            <router-link active-class="active" :to="{name:'admin_settings_sql'}" class="left-menu-classic-elem">SQL</router-link>
         </div>
         <div class="col-10 content">
             <router-view></router-view>
+        </div>
+        <div class="footer">
+          <p>Свободное место на диске:{{freeMemory + ' Гб'}}</p>
         </div>
     </div>
 </template>
 
 <script>
+
+    import {mapGetters, mapActions} from 'vuex'
     export default {
-        name: "index"
+        name: "index",
+        computed:{
+          ...mapGetters('settings',['freeMemory'])
+        },
+        created(){
+          this.$store.dispatch('settings/getFreeMemory')
+        }
     }
 </script>
 
@@ -28,6 +40,12 @@
             @include col();
             @include size(10);
         }
+      .footer{
+        font-size:0.9rem;
+        @include col();
+        @include size(12);
+        color:#333;
+      }
     }
 
     .left-menu-classic{

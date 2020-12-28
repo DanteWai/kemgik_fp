@@ -54,6 +54,7 @@ export default {
             let { ok, data } = await ordersApi.transfer(element)
             if(ok && data)
                 dispatch('alerts/add', {text:'Заявка успешно выгружена', timeout:4000,type:'success'}, {root:true})
+                return data
         },
     }
 }
